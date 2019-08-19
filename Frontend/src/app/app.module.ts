@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AlertModule } from 'ngx-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -16,8 +17,9 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent
   ],
   imports: [
-    AlertModule.forRoot(),
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AuthenticationModule,
     AppRoutingModule
   ],
