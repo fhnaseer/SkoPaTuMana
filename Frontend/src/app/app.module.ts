@@ -3,21 +3,20 @@ import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+
 import { AppComponent } from './app/app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from "./home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
+    AuthenticationModule,
     AppRoutingModule
   ],
   providers: [],
