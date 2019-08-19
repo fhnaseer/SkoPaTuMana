@@ -1,0 +1,12 @@
+header, footer {
+    padding: 1em;
+    color: cornflowerblue;
+    background-color: honeydew;
+    clear: left;
+    text-align: center;
+}
+
+a {
+    padding: 1em;
+    color: darkslategrey
+}

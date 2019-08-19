@@ -7,11 +7,13 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
 import { AppComponent } from './app/app.component';
 import { HomeComponent } from "./home/home.component";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     AlertModule.forRoot(),
