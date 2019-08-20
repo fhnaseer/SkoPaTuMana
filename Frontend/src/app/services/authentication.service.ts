@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 import { BaseService } from './base.service';
-import { UserCredentials } from '../models/authentication';
+import { UserCredentials, StatusResponse } from '../models/authentication';
 
 @Injectable()
 export class AuthenticationService extends BaseService {
@@ -16,16 +16,14 @@ export class AuthenticationService extends BaseService {
         return this.authenticationBaseUrl + 'register';
     }
 
-    register(userCredentials: UserCredentials) {
-        this.http.post(this.getRegisterUrl(), userCredentials)
-            .toPromise()
-            .then(res => {
-                console.log(res);
-                return 'yay';
-            })
-            .catch(err => {
-                console.log(err);
-                return 'nay';
-            })
+    async register(userCredentials: UserCredentials): Promise<StatusResponse> {
+        try {
+            const res = await this.http.post<StatusResponse>(this.getRegisterUrl(), userCredentials)
+                .toPromise();
+            return res;
+        }
+        catch (err) {
+            return err.error;
+        }
     }
 }
