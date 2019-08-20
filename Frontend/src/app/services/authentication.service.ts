@@ -10,19 +10,22 @@ export class AuthenticationService extends BaseService {
         super(http);
     }
 
+    authenticationBaseUrl = this.backendUrl + 'authentication/';
+
     private getRegisterUrl() {
-        return this.backendUrl + 'register';
+        return this.authenticationBaseUrl + 'register';
     }
 
-    async register(userCredentials: UserCredentials) {
-        try {
-            const res = await this.http.post<UserCredentials>(this.getRegisterUrl(), userCredentials)
-                .toPromise();
-            return 'yay';
-        }
-        catch (error) {
-            console.log('error');
-            return 'nay';
-        }
+    register(userCredentials: UserCredentials) {
+        this.http.post(this.getRegisterUrl(), userCredentials)
+            .toPromise()
+            .then(res => {
+                console.log(res);
+                return 'yay';
+            })
+            .catch(err => {
+                console.log(err);
+                return 'nay';
+            })
     }
 }
