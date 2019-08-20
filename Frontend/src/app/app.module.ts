@@ -9,6 +9,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AppComponent } from './app/app.component';
 import { HomeComponent } from "./home/home.component";
 import { HeaderComponent } from './header/header.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { HeaderComponent } from './header/header.component';
     AuthenticationModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

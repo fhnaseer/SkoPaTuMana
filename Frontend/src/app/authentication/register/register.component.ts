@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+
+import { UserCredentials } from 'src/app/models/authentication';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  userCredentials: UserCredentials;
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -17,6 +22,10 @@ export class RegisterComponent implements OnInit {
   password = ''
 
   register() {
-
+    this.userCredentials = {
+      username: this.username,
+      password: this.password
+    }
+    this.authenticationService.register(this.userCredentials);
   }
 }
