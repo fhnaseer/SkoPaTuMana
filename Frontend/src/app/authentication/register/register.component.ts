@@ -17,19 +17,16 @@ export class RegisterComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
+    this.userCredentials = {
+      username: '',
+      password: ''
+    }
   }
 
-  username = '';
-  password = ''
-
   register() {
-    this.userCredentials = {
-      username: this.username,
-      password: this.password
-    }
     this.authenticationService.register(this.userCredentials).then(res => {
       if (res.status != 200) {
-        this.username = res.message;
+        this.userCredentials.username = res.message;
       } else {
         this.router.navigate(['/']);
       }

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserCredentials } from 'src/app/models/authentication';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  userCredentials: UserCredentials;
+
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
+    this.userCredentials = {
+      username: '',
+      password: ''
+    }
   }
 
+  login() {
+    this.authenticationService.login(this.userCredentials).then(res => {
+      if (res.status != 200) {
+        this.userCredentials.username = res.message;
+      } else {
+        this.router.navigate(['/']);
+      }
+    })
+  }
 }

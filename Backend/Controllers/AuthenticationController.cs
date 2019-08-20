@@ -11,7 +11,7 @@ namespace Backend.Controllers
     public class AuthenticationController : ControllerBase
     {
         [HttpPost("register")]
-        public IActionResult Post([FromBody] UserCredentials userCredentials)
+        public IActionResult Register([FromBody] UserCredentials userCredentials)
         {
             if (userCredentials == null || string.IsNullOrWhiteSpace(userCredentials.Username) || string.IsNullOrWhiteSpace(userCredentials.Password))
                 return new Responses.BadRequestResult("Invalid data,");
@@ -28,9 +28,33 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserCredentials userCredentials)
+        {
+            if (userCredentials == null || string.IsNullOrWhiteSpace(userCredentials.Username) || string.IsNullOrWhiteSpace(userCredentials.Password))
+                return new Responses.BadRequestResult("Invalid credentials,");
+
+            using (var context = new SkoPaTuManaContext())
+            {
+                var user = GetUser(userCredentials, context);
+                if (user == null)
+                    return new Responses.BadRequestResult("User does not exist,");
+
+                if (user.Password == userCredentials.Password)
+                    return new Responses.OkResult("Login successful,");
+
+                return new Responses.BadRequestResult("Wrong password,");
+            }
+        }
+
         private static bool UserExists(UserCredentials userCredentials, SkoPaTuManaContext context)
         {
             return context.Users.Any(u => u.Username == userCredentials.Username);
+        }
+
+        private static Users GetUser(UserCredentials userCredentials, SkoPaTuManaContext context)
+        {
+            return context.Users.FirstOrDefault(u => u.Username == userCredentials.Username);
         }
     }
 }
